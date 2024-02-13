@@ -21,11 +21,11 @@ public interface BagInterface<T> {
     T[] toArray();
 
     // added via BagSome project requirements
-    T[] union(T[] inputBag);
+    BagInterface<T> union(BagInterface<T> inputBag);
 
-    T[] intersection(T[] inputBag);   
+    BagInterface<T> intersection(BagInterface<T> inputBag);   
 
-    T[] difference(T[] inputBag);
+    BagInterface<T> difference(BagInterface<T> inputBag);
 
 
 }
