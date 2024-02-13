@@ -8,6 +8,14 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
     private boolean integrityOK = false;
     private static final int MAX_CAPACITY = 10000;
 
+    public ResizableArrayBag() {
+        @SuppressWarnings("unchecked")
+        T[] tempBag = (T[]) new Object[DEFAULT_CAPACITY];
+        bag = tempBag;
+        this.numberOfEntries = 0;
+        this.integrityOK = true;
+    }
+
     public ResizableArrayBag(int capcacity) {
         if (capcacity <= MAX_CAPACITY) {
             @SuppressWarnings("unchecked")
