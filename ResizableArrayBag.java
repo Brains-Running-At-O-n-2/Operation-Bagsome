@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class ResizableArrayBag<T> implements BagInterface<T> {
     // private final T[] bag;
-    private T[] bag;
+    private T[] bag; // should this be final?
     private static final int DEFAULT_CAPACITY = 25;
     private int numberOfEntries;
     private boolean integrityOK = false;
@@ -101,8 +101,58 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
     }
 
     // Bagsome methods (union, intersection, difference)
-    
+    public BagInterface<T> union(BagInterface<T> inputBag) {
+        ResizableArrayBag<T> result = new ResizableArrayBag<>(numberOfEntries + inputBag.getCurrentSize());
+        for (T item : this.toArray()) {
+            result.add(item);
+        }
+        for (T item : inputBag.toArray()) {
+            result.add(item);
+        }
+        return result;
+    }
 
+    public BagInterface<T> intersection(BagInterface<T> inputBag) {
+        int minSize = bag.length < inputBag.getCurrentSize() ? bag.length : inputBag.getCurrentSize();
+        ResizableArrayBag<T> result = new ResizableArrayBag<>(minSize);
+
+        ResizableArrayBag<T> bag1Copy = new ResizableArrayBag<>(this.getCurrentSize());
+        ResizableArrayBag<T> bag2Copy = new ResizableArrayBag<>(inputBag.getCurrentSize());
+        for (T item : this.toArray()) {
+            bag1Copy.add(item);
+        }
+        for (T item : inputBag.toArray()) {
+            bag2Copy.add(item);
+        }
+
+        for (T item : bag1Copy.toArray()) {
+            if (bag2Copy.contains(item)) {
+                result.add(item);
+                bag1Copy.remove(item);
+                bag2Copy.remove(item);
+            }
+        }
+        return result;
+    }
+
+    public BagInterface<T> difference(BagInterface<T> inputBag) {
+        ResizableArrayBag<T> bag1Copy = new ResizableArrayBag<>(this.getCurrentSize());
+        ResizableArrayBag<T> bag2Copy = new ResizableArrayBag<>(inputBag.getCurrentSize());
+        for (T item : this.toArray()) {
+            bag1Copy.add(item);
+        }
+        for (T item : inputBag.toArray()) {
+            bag2Copy.add(item);
+        }
+
+        for (T item : bag1Copy.toArray()) {
+            if (bag2Copy.contains(item)) {
+                bag1Copy.remove(item);
+                bag2Copy.remove(item);
+            }
+        }
+        return bag1Copy;
+    }
 
     // Helper methods
     private void checkIntegrity() {
@@ -139,8 +189,9 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
     }
 
     private void checkCapacity(int capacity) {
-        if(capacity > MAX_CAPACITY) {
-            throw new IllegalStateException("Attempt to create a bug whose capacity exceeds allowed maximum of " + MAX_CAPACITY);
+        if (capacity > MAX_CAPACITY) {
+            throw new IllegalStateException(
+                    "Attempt to create a bug whose capacity exceeds allowed maximum of " + MAX_CAPACITY);
         }
     }
 
