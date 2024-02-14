@@ -10,7 +10,7 @@ public interface BagInterface<T> {
 
     T remove();
 
-    // boolean remove(T entry);
+    boolean remove(T entry);
 
     void clear();
 
