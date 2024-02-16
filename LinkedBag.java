@@ -1,6 +1,6 @@
 public class LinkedBag<T> implements BagInterface<T> {
     private Node<T> firstNode;
-    int numberOfEntries; 
+    int numberOfEntries;
 
     @Override
     public int getCurrentSize() {
@@ -9,22 +9,23 @@ public class LinkedBag<T> implements BagInterface<T> {
 
     @Override
     public boolean isEmpty() {
-        return (numberOfEntries<=0);
+        return (numberOfEntries <= 0);
     }
 
     @Override
     public boolean add(T newEntry) {
         Node<T> newNode = new Node<T>(newEntry);
-        newNode.setNextNode(firstNode); 
+        newNode.setNextNode(firstNode);
 
         firstNode = newNode;
         numberOfEntries++;
-        return true; 
+        return true;
     }
+
     @Override
     public T remove() {
         T result = null;
-        if (firstNode != null){
+        if (firstNode != null) {
             result = firstNode.getData();
             firstNode = firstNode.getNextNode();
             numberOfEntries--;
@@ -40,7 +41,7 @@ public class LinkedBag<T> implements BagInterface<T> {
 
     @Override
     public void clear() {
-        firstNode = null; 
+        firstNode = null;
         numberOfEntries = 0;
     }
 
@@ -48,9 +49,9 @@ public class LinkedBag<T> implements BagInterface<T> {
     public int getFrequencyOf(T entry) {
         int frequency = 0;
         int counter = 0;
-        Node<T> currentNode = firstNode; 
-        while ((counter < numberOfEntries) && currentNode != null){
-            if (entry.equals(currentNode.getData())){
+        Node<T> currentNode = firstNode;
+        while ((counter < numberOfEntries) && currentNode != null) {
+            if (entry.equals(currentNode.getData())) {
                 frequency++;
             }
             counter++;
@@ -59,35 +60,54 @@ public class LinkedBag<T> implements BagInterface<T> {
         return frequency;
     }
 
+    private Node<T> getReferenceTo(T anEntry) {
+        boolean found = false;
+        Node<T> currentNode = firstNode;
+        while (!found && (currentNode != null)) {
+            if (anEntry.equals(currentNode.getData()))
+                found = true;
+            else
+                currentNode = currentNode.getNextNode();
+        } // end while
+        return currentNode;
+    }
+
     @Override
     public boolean remove(T entry) {
-        
-        return false;
+        boolean result = false;
+        Node<T> entryReference = getReferenceTo(entry);
+        if (entryReference != null) {
+            entryReference.setData(firstNode.getData());
+            firstNode = firstNode.getNextNode();
+            numberOfEntries--;
+            result = true;
+        }
+        return result;
+
     }
 
     @Override
     public boolean contains(T entry) {
         Node currentNode = firstNode;
         boolean found = false;
-        while (!found && currentNode != null){
-            if (entry.equals(currentNode)){
+        while (!found && currentNode != null) {
+            if (entry.equals(currentNode)) {
                 found = true;
-            }
-            else {
+            } else {
                 currentNode = currentNode.getNextNode();
             }
         }
-        return found; 
+        return found;
     }
-    
+
     @Override
     public T[] toArray() {
         @SuppressWarnings("unchecked")
-        T[] result = (T[])new Object[numberOfEntries];
+        T[] result = (T[]) new Object[numberOfEntries];
 
         int index = 0;
         Node<T> currentNode = firstNode;
-        while ((index < numberOfEntries) && currentNode != null){
+        while ((index < numberOfEntries) && currentNode != null) {
             result[index] = currentNode.getData();
             currentNode = currentNode.getNextNode();
             index++;
@@ -97,19 +117,42 @@ public class LinkedBag<T> implements BagInterface<T> {
 
     @Override
     public BagInterface<T> union(BagInterface<T> inputBag) {
-        // TODO Auto-generated method stub
-        return null;
+        LinkedBag<T> unionBag = new LinkedBag<T>();
+        while (!this.isEmpty()) {
+            unionBag.add(this.remove());
+        }
+        while (!inputBag.isEmpty()) {
+            unionBag.add(inputBag.remove());
+        }
+        return unionBag;
     }
+    // worse/best: O(n+m)
 
     @Override
     public BagInterface<T> intersection(BagInterface<T> inputBag) {
-        // TODO Auto-generated method stub
-        return null;
+        LinkedBag<T> intersectionBag = new LinkedBag<T>();
+        while (!this.isEmpty()) {
+            T entry = this.remove();
+            if (inputBag.remove(entry)) {
+                intersectionBag.add(entry);
+            }
+        }
+        return intersectionBag;
     }
+    // worse: O(nm)
+    // best: O(n)
 
     @Override
     public BagInterface<T> difference(BagInterface<T> inputBag) {
-        // TODO Auto-generated method stub
-        return null;
+        LinkedBag<T> differenceBag = new LinkedBag<T>();
+        while (!this.isEmpty()) {
+            T entry = this.remove();
+            if (!inputBag.remove(entry)) {
+                differenceBag.add(entry);
+            }
+        }
+        return differenceBag;
     }
+    // worse: O(nm)
+    // best: O(n)
 }
