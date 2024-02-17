@@ -1,5 +1,8 @@
+import java.util.Arrays;
+
 public class ResizableArrayBag<T> implements BagInterface<T> {
-    private final T[] bag;
+    // private final T[] bag;
+    private T[] bag; // bag shouldn't be final for resizable array bag?
     private static final int DEFAULT_CAPACITY = 25;
     private int numberOfEntries;
     private boolean integrityOK = false;
@@ -71,14 +74,13 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      */
     public boolean add(T newEntry) {
         checkIntegrity();
-        boolean result = true;
         if (isFull()) {
-            result = false;
-        } else {
-            bag[numberOfEntries] = newEntry;
-            numberOfEntries++;
+            doubleCapacity();
         }
-        return result;
+        bag[numberOfEntries] = newEntry;
+        numberOfEntries++;
+
+        return true;
     }
 
     /**
@@ -87,17 +89,6 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      * @return either removed entry, if removal was successful, or null
      */
     public T remove() {
-        // checkIntegrity();
-        // T result = null;
-        // if(!isEmpty()){
-        // result = bag[numberOfEntries-1];
-        // bag[numberOfEntries-1] = null;
-        // numberOfEntries--;
-        // }
-        // return result;
-
-        // OR //
-
         checkIntegrity();
         T result = removeEntry(numberOfEntries - 1);
         return result;
@@ -116,7 +107,9 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
         return entry.equals(result);
     }
 
-    /** Clear all entries from bag */
+    /**
+     * Clear all entries from bag
+     */
     public void clear() {
         while (!isEmpty()) {
             remove();
@@ -187,56 +180,75 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
         return result;
     }
 
-    /** Returns a bag consisting of the items that are shared by both bags
+    /**
+     * Returns a bag consisting of the items that are shared by both bags
      * 
      * @param bag to determine intersecting items
      * @return bag with shared items
      */
     public BagInterface<T> intersection(BagInterface<T> inputBag) {
-        int minSize = bag.length < inputBag.getCurrentSize() ? bag.length : inputBag.getCurrentSize();
+        int minSize = bag.length < inputBag.toArray().length ? bag.length : inputBag.toArray().length;
         ResizableArrayBag<T> result = new ResizableArrayBag<>(minSize);
 
         T[] bag1Copy = this.toArray();
-        for(T item : bag1Copy) {
-            int needed = this.getFrequencyOf(item) < inputBag.getFrequencyOf(item) ? this.getFrequencyOf(item) : inputBag.getFrequencyOf(item);
-            int lacking = needed - result.getFrequencyOf(item);
-            while (lacking > 0) {
+        for (T item : bag1Copy) {
+            int lowerFrequency = this.getFrequencyOf(item) < inputBag.getFrequencyOf(item) ? this.getFrequencyOf(item)
+                    : inputBag.getFrequencyOf(item);
+            int stillNeed = lowerFrequency - result.getFrequencyOf(item); // see if item is already added to the bag or
+                                                                          // not
+
+            while (stillNeed > 0) {
                 result.add(item);
-                lacking--;
+                stillNeed--;
             }
         }
         return result;
     }
 
+    /**
+     * Returns a bag with the contents from the other bag pulled out
+     * 
+     * @param bag to compare to the called bag
+     * @return bag without inputBag items
+     */
     public BagInterface<T> difference(BagInterface<T> inputBag) {
-        ResizableArrayBag<T> bag1Copy = new ResizableArrayBag<>(this.getCurrentSize());
-        ResizableArrayBag<T> bag2Copy = new ResizableArrayBag<>(inputBag.getCurrentSize());
-        for (T item : this.toArray()) {
-            bag1Copy.add(item);
-        }
-        for (T item : inputBag.toArray()) {
-            bag2Copy.add(item);
-        }
+        ResizableArrayBag<T> result = new ResizableArrayBag<>(bag.length);
 
-        for (T item : bag1Copy.toArray()) {
-            if (bag2Copy.contains(item)) {
-                bag1Copy.remove(item);
-                bag2Copy.remove(item);
+        for (T item : this.toArray()) {
+            if (inputBag.contains(item)) {
+                int itemDifference = this.getFrequencyOf(item) - inputBag.getFrequencyOf(item);
+                if (!result.contains(item)) { // check if item already in bag
+                    while (itemDifference > 0) {
+                        result.add(item);
+                        itemDifference--;
+                    }
+                }
+            } else {
+                result.add(item);
             }
         }
-        return bag1Copy;
+        return result;
     }
 
     // Helper methods
     //
     //
     //
+    /**
+     * check integrity of the bag
+     */
     private void checkIntegrity() {
         if (!integrityOK) {
             throw new SecurityException("ArrayBag Object is corrupt.");
         }
     }
 
+    /**
+     * gets index of an item (only used in implementation)
+     * 
+     * @param entry whose index is being sought
+     * @return index of the entry
+     */
     private int getIndexOf(T entry) {
         int where = -1;
         boolean found = false;
@@ -252,6 +264,12 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
         return where;
     }
 
+    /**
+     * removes an entry at a given index (only used in implementation)
+     * 
+     * @param givenIndex where entry should be removed
+     * @return null or entry that was removed
+     */
     private T removeEntry(int givenIndex) {
         T result = null;
 
@@ -271,11 +289,13 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
         }
     }
 
-    // private void doubleCapacity() {
-    // int newLength = 2 * bag.length;
-    // checkCapacity(newLength);
-    // bag = Arrays.copyOf(bag, newLength);
-    // }
+    private void doubleCapacity() {
+        int newLength = 2 * bag.length;
+        checkCapacity(newLength);
+        bag = Arrays.copyOf(bag, newLength);
+        System.out.println("end");
+    }
+
     // END helper methods
 
 }
