@@ -3,7 +3,8 @@ Member Names: Michael Wu,
 
 Michael's Contributions:
 - Create BagInterface.java
-- Create ResizableArrayBag.java
+- Implement ResizableArrayBag.java
+- Create tests for ResizableArrayBag in ResizableArrayBagTest.java
 
 __'s Contributions:
 -...
