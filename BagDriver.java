@@ -1,5 +1,12 @@
 public class BagDriver {
     public static void main(String[] args) {
-        // THIS CLASS IS FOR TESTING
+        // Creation of a LinkedBag and ResizableArrayBag and their contents to be added
+        BagInterface<String> rArrayBag = new ResizableArrayBag<>();
+        BagInterface<String> lBag = new LinkedBag<>();
+        String[] rArrayBagContents = {"a", "b", "c"};
+        String[] lBagContents = {"b", "b", "d", "e"};
+        //Adding the contents into the bags
+        ResizableArrayBagTest.AddContents(rArrayBag, rArrayBagContents);
+        LinkedBagTest.AddContents(lBag, lBagContents);
     }
 }
