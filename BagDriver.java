@@ -5,8 +5,5 @@ public class BagDriver {
         BagInterface<String> lBag = new LinkedBag<>();
         String[] rArrayBagContents = {"a", "b", "c"};
         String[] lBagContents = {"b", "b", "d", "e"};
-        //Adding the contents into the bags
-        ResizableArrayBagTest.AddContents(rArrayBag, rArrayBagContents);
-        LinkedBagTest.AddContents(lBag, lBagContents);
     }
 }

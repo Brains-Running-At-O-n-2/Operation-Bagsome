@@ -72,8 +72,8 @@ public interface BagInterface<T> {
      */
     T[] toArray();
 
-    // added via BagSome project requirements
-
+    // union, intersection, difference
+    //
     /**
      * Performs the union of this bag and another bag.
      *
