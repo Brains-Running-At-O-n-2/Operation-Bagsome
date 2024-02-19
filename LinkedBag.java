@@ -117,14 +117,22 @@ public class LinkedBag<T> implements BagInterface<T> {
 
     @Override
     public BagInterface<T> union(BagInterface<T> inputBag) {
-        LinkedBag<T> unionBag = new LinkedBag<T>();
-        while (!this.isEmpty()) {
-            unionBag.add(this.remove());
+        LinkedBag<T> result = new LinkedBag<T>();
+
+        for (T item : this.toArray()) {
+            result.add(item);
         }
-        while (!inputBag.isEmpty()) {
-            unionBag.add(inputBag.remove());
+        for (T item : inputBag.toArray()) {
+            result.add(item);
         }
-        return unionBag;
+
+        // while (!this.isEmpty()) {
+        // unionBag.add(this.remove());
+        // }
+        // while (!inputBag.isEmpty()) {
+        // unionBag.add(inputBag.remove());
+        // }
+        return result;
     }
     // worse/best: O(n+m)
 
