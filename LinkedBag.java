@@ -88,7 +88,7 @@ public class LinkedBag<T> implements BagInterface<T> {
 
     @Override
     public boolean contains(T entry) {
-        Node currentNode = firstNode;
+        Node<T> currentNode = firstNode;
         boolean found = false;
         while (!found && currentNode != null) {
             if (entry.equals(currentNode)) {
