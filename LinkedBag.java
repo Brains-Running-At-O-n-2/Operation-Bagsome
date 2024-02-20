@@ -91,7 +91,7 @@ public class LinkedBag<T> implements BagInterface<T> {
         Node<T> currentNode = firstNode;
         boolean found = false;
         while (!found && currentNode != null) {
-            if (entry.equals(currentNode)) {
+            if (entry.equals(currentNode.getData())) {
                 found = true;
             } else {
                 currentNode = currentNode.getNextNode();
@@ -118,49 +118,55 @@ public class LinkedBag<T> implements BagInterface<T> {
     @Override
     public BagInterface<T> union(BagInterface<T> inputBag) {
         LinkedBag<T> result = new LinkedBag<T>();
-
-        for (T item : this.toArray()) {
+        T[] thisArray = this.toArray();
+        T[] inputArray = inputBag.toArray();
+        for (T item : thisArray) {
             result.add(item);
         }
-        for (T item : inputBag.toArray()) {
+        for (T item : inputArray) {
             result.add(item);
         }
-
-        // while (!this.isEmpty()) {
-        // unionBag.add(this.remove());
-        // }
-        // while (!inputBag.isEmpty()) {
-        // unionBag.add(inputBag.remove());
-        // }
         return result;
     }
-    // worse/best: O(n+m)
 
     @Override
     public BagInterface<T> intersection(BagInterface<T> inputBag) {
         LinkedBag<T> intersectionBag = new LinkedBag<T>();
-        while (!this.isEmpty()) {
-            T entry = this.remove();
-            if (inputBag.remove(entry)) {
-                intersectionBag.add(entry);
+        T[] thisArray = this.toArray();
+        for (T item : thisArray) {
+            if (inputBag.contains(item)) {
+                int freq1 = this.getFrequencyOf(item);
+                int freq2 = inputBag.getFrequencyOf(item);
+                int lowerFrequency = Math.min(freq1, freq2);
+                int stillNeed = lowerFrequency - intersectionBag.getFrequencyOf(item);
+
+                while (stillNeed > 0) {
+                    intersectionBag.add(item);
+                    stillNeed--;
+                }
             }
         }
         return intersectionBag;
     }
-    // worse: O(nm)
-    // best: O(n)
 
     @Override
     public BagInterface<T> difference(BagInterface<T> inputBag) {
         LinkedBag<T> differenceBag = new LinkedBag<T>();
-        while (!this.isEmpty()) {
-            T entry = this.remove();
-            if (!inputBag.remove(entry)) {
-                differenceBag.add(entry);
-            }
+        T[] thisArray = this.toArray();
+
+        for (T item : thisArray) {
+            if (inputBag.contains(item)){
+            int freq1 = this.getFrequencyOf(item);
+            int freq2 = inputBag.getFrequencyOf(item);
+            int differenceFrequency = Math.abs(freq1-freq2); 
+            int stillNeed = differenceFrequency - differenceBag.getFrequencyOf(item);
+    
+            while (stillNeed > 0) {
+                differenceBag.add(item);
+                stillNeed--;
+            }}
         }
+    
         return differenceBag;
     }
-    // worse: O(nm)
-    // best: O(n)
 }
