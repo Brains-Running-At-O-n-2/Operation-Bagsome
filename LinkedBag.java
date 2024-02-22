@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class LinkedBag<T> implements BagInterface<T> {
     private Node<T> firstNode;
     int numberOfEntries;
