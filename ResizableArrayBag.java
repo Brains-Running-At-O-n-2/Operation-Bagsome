@@ -157,7 +157,7 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      * @return bag with combined items
      */
     public BagInterface<T> union(BagInterface<T> inputBag) {
-        
+
         T[] thisArray = this.toArray();
         T[] inputArray = inputBag.toArray();
 

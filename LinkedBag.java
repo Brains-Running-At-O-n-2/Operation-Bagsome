@@ -182,6 +182,7 @@ public class LinkedBag<T> implements BagInterface<T> {
                     }
                 } else {
                     differenceBag.add(item);
+
                 }
             }
 
