@@ -7,10 +7,9 @@ public class LinkedBagTest {
         System.out.println("Bag: " + bag);
 
         // Add elements
-        bag.add(1);
-        bag.add(2);
-        bag.add(3);
-        System.out.println("After Adding: " + bag);
+        bag.add("Apple");
+        bag.add("Orange");
+        bag.add("Grape");
 
         // Get current size
         System.out.println("Current Size: " + bag.getCurrentSize());
@@ -26,16 +25,16 @@ public class LinkedBagTest {
         System.out.println("After Removing: " + bag);
 
         // Check frequency
-        System.out.println("Frequency of 2: " + bag.getFrequencyOf(2));
+        System.out.println("Frequency of Apple: " + bag.getFrequencyOf("Apple"));
 
         // Check if contains
-        System.out.println("Contains 3: " + bag.contains(3));
+        System.out.println("Contains Orange: " + bag.contains("Orange"));
 
         // Union with another bag
         LinkedBag<Integer> anotherBag = new LinkedBag<>();
-        anotherBag.add(2);
-        anotherBag.add(3);
-        anotherBag.add(4);
+        anotherBag.add("Banana");
+        anotherBag.add("Orange");
+        anotherBag.add("Apple");
         System.out.println("Union with Another Bag: " + bag.union(anotherBag));
 
         // Intersection with another bag
