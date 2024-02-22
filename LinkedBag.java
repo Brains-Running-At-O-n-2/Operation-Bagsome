@@ -117,56 +117,85 @@ public class LinkedBag<T> implements BagInterface<T> {
 
     @Override
     public BagInterface<T> union(BagInterface<T> inputBag) {
-        LinkedBag<T> result = new LinkedBag<T>();
-        T[] thisArray = this.toArray();
-        T[] inputArray = inputBag.toArray();
-        for (T item : thisArray) {
-            result.add(item);
+        try {
+            LinkedBag<T> result = new LinkedBag<T>();
+            T[] thisArray = this.toArray();
+            T[] inputArray = inputBag.toArray();
+            for (T item : thisArray) {
+                result.add(item);
+            }
+            for (T item : inputArray) {
+                result.add(item);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new LinkedBag<T>();
         }
-        for (T item : inputArray) {
-            result.add(item);
-        }
-        return result;
     }
 
     @Override
     public BagInterface<T> intersection(BagInterface<T> inputBag) {
-        LinkedBag<T> intersectionBag = new LinkedBag<T>();
-        T[] thisArray = this.toArray();
-        for (T item : thisArray) {
-            if (inputBag.contains(item)) {
-                int freq1 = this.getFrequencyOf(item);
-                int freq2 = inputBag.getFrequencyOf(item);
-                int lowerFrequency = Math.min(freq1, freq2);
-                int stillNeed = lowerFrequency - intersectionBag.getFrequencyOf(item);
+        try {
+            if (checkIfNull(inputBag)) {
+                throw new Exception("Input Bag is empty");
+            }
 
-                while (stillNeed > 0) {
-                    intersectionBag.add(item);
-                    stillNeed--;
+            LinkedBag<T> intersectionBag = new LinkedBag<T>();
+            T[] thisArray = this.toArray();
+
+            for (T item : thisArray) {
+                if (inputBag.contains(item)) {
+                    int freq1 = this.getFrequencyOf(item);
+                    int freq2 = inputBag.getFrequencyOf(item);
+                    int lowerFrequency = Math.min(freq1, freq2);
+                    int stillNeed = lowerFrequency - intersectionBag.getFrequencyOf(item);
+
+                    while (stillNeed > 0) {
+                        intersectionBag.add(item);
+                        stillNeed--;
+                    }
                 }
             }
+
+            return intersectionBag;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new LinkedBag<T>();
         }
-        return intersectionBag;
     }
 
     @Override
     public BagInterface<T> difference(BagInterface<T> inputBag) {
-        LinkedBag<T> differenceBag = new LinkedBag<T>();
-        T[] thisArray = this.toArray();
+        try {
+            LinkedBag<T> differenceBag = new LinkedBag<T>();
+            T[] thisArray = this.toArray();
 
-        for (T item : thisArray) {
-            if (inputBag.contains(item)){
-            int freq1 = this.getFrequencyOf(item);
-            int freq2 = inputBag.getFrequencyOf(item);
-            int differenceFrequency = Math.abs(freq1-freq2); 
-            int stillNeed = differenceFrequency - differenceBag.getFrequencyOf(item);
-    
-            while (stillNeed > 0) {
-                differenceBag.add(item);
-                stillNeed--;
-            }}
+            for (T item : thisArray) {
+                if (inputBag.contains(item)) {
+                    int freq1 = this.getFrequencyOf(item);
+                    int freq2 = inputBag.getFrequencyOf(item);
+                    int differenceFrequency = Math.abs(freq1 - freq2);
+                    int stillNeed = differenceFrequency - differenceBag.getFrequencyOf(item);
+
+                    while (stillNeed > 0) {
+                        differenceBag.add(item);
+                        stillNeed--;
+                    }
+                }
+            }
+
+            return differenceBag;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new LinkedBag<T>();
         }
-    
-        return differenceBag;
+    }
+
+    private boolean checkIfNull(Object input) {
+        if (input == null) {
+            return true;
+        } else
+            return false;
     }
 }
