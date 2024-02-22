@@ -21,19 +21,6 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
         this.integrityOK = true;
     }
 
-    /** Constructor with user given capacity */
-    public ResizableArrayBag(int capcacity) {
-        if (capcacity <= MAX_CAPACITY) {
-            @SuppressWarnings("unchecked")
-            T[] tempBag = (T[]) new Object[capcacity]; // user provided capacity
-            bag = tempBag;
-            this.numberOfEntries = 0;
-            this.integrityOK = true;
-        } else {
-            throw new IllegalStateException("Attempt to create a bag whose capacity exceeds allowed maximum.");
-        }
-    }
-
     // Methods according to BagInterface
     //
     //
@@ -170,11 +157,15 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      * @return bag with combined items
      */
     public BagInterface<T> union(BagInterface<T> inputBag) {
-        ResizableArrayBag<T> result = new ResizableArrayBag<>(numberOfEntries + inputBag.getCurrentSize());
-        for (T item : this.toArray()) {
+        T[] thisArray = this.toArray();
+        T[] inputArray = inputBag.toArray();
+
+        ResizableArrayBag<T> result = new ResizableArrayBag<>();
+        
+        for (T item : thisArray) {
             result.add(item);
         }
-        for (T item : inputBag.toArray()) {
+        for (T item : inputArray) {
             result.add(item);
         }
         return result;
@@ -187,11 +178,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      * @return bag with shared items
      */
     public BagInterface<T> intersection(BagInterface<T> inputBag) {
-        int minSize = bag.length < inputBag.toArray().length ? bag.length : inputBag.toArray().length;
-        ResizableArrayBag<T> result = new ResizableArrayBag<>(minSize);
+        T[] thisArray = this.toArray();
 
-        T[] bag1Copy = this.toArray();
-        for (T item : bag1Copy) {
+        ResizableArrayBag<T> result = new ResizableArrayBag<>();
+
+        for (T item : thisArray) {
             int lowerFrequency = this.getFrequencyOf(item) < inputBag.getFrequencyOf(item) ? this.getFrequencyOf(item)
                     : inputBag.getFrequencyOf(item);
             int stillNeed = lowerFrequency - result.getFrequencyOf(item); // see if item is already added to the bag or
@@ -212,9 +203,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      * @return bag without inputBag items
      */
     public BagInterface<T> difference(BagInterface<T> inputBag) {
-        ResizableArrayBag<T> result = new ResizableArrayBag<>(bag.length);
+        T[] thisArray = this.toArray();
 
-        for (T item : this.toArray()) {
+        ResizableArrayBag<T> result = new ResizableArrayBag<>();
+
+        for (T item : thisArray) {
             if (inputBag.contains(item)) {
                 int itemDifference = this.getFrequencyOf(item) - inputBag.getFrequencyOf(item);
                 if (!result.contains(item)) { // check if item already in bag
