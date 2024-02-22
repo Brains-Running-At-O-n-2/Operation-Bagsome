@@ -3,8 +3,8 @@ import java.util.Arrays;
 public class ResizableArrayBagTest {
     public static void main(String[] args) {
         // test creating one bag
-        BagInterface<String> bag1 = new ResizableArrayBag<>(); // defaults at capacity 25
-        BagInterface<String> bag2 = new ResizableArrayBag<>(); // defaults at capacity 25
+        BagInterface<String> bag1 = new ResizableArrayBag<>();
+        BagInterface<String> bag2 = new ResizableArrayBag<>(); 
 
         // tests before adding to bag
         //
