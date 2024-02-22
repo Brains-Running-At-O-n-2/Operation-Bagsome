@@ -157,11 +157,12 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      * @return bag with combined items
      */
     public BagInterface<T> union(BagInterface<T> inputBag) {
+        
         T[] thisArray = this.toArray();
         T[] inputArray = inputBag.toArray();
 
         ResizableArrayBag<T> result = new ResizableArrayBag<>();
-        
+
         for (T item : thisArray) {
             result.add(item);
         }
@@ -275,6 +276,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
         return result;
     }
 
+    /**
+     * checks to see if bag needs to become bigger
+     * 
+     * @param capacity how big bag is
+     */
     private void checkCapacity(int capacity) {
         if (capacity > MAX_CAPACITY) {
             throw new IllegalStateException(
@@ -282,6 +288,9 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
         }
     }
 
+    /**
+     * double the capacity to make bag resizable
+     */
     private void doubleCapacity() {
         int newLength = 2 * bag.length;
         checkCapacity(newLength);

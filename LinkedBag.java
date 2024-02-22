@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class LinkedBag<T> implements BagInterface<T> {
     private Node<T> firstNode;
     int numberOfEntries;
@@ -173,15 +175,15 @@ public class LinkedBag<T> implements BagInterface<T> {
 
             for (T item : thisArray) {
                 if (inputBag.contains(item)) {
-                    int freq1 = this.getFrequencyOf(item);
-                    int freq2 = inputBag.getFrequencyOf(item);
-                    int differenceFrequency = Math.abs(freq1 - freq2);
-                    int stillNeed = differenceFrequency - differenceBag.getFrequencyOf(item);
-
-                    while (stillNeed > 0) {
-                        differenceBag.add(item);
-                        stillNeed--;
+                    int itemDifference = this.getFrequencyOf(item) - inputBag.getFrequencyOf(item);
+                    if(!differenceBag.contains(item)) { // if result doesn't already have item
+                        while(itemDifference > 0) {
+                            differenceBag.add(item);
+                            itemDifference--;
+                        }
                     }
+                } else {
+                    differenceBag.add(item);
                 }
             }
 
