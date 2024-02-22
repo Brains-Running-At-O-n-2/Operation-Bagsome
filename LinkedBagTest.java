@@ -1,46 +1,132 @@
-
-import java.util.*;
+import java.util.Arrays;
 
 public class LinkedBagTest {
     public static void main(String[] args) {
-        LinkedBag<Integer> bag = new LinkedBag<>();
-        System.out.println("Bag: " + bag);
+        // test creating one bag
+        BagInterface<String> bag1 = new LinkedBag<>();
+        BagInterface<String> bag2 = new LinkedBag<>(); 
 
-        // Add elements
-        bag.add("Apple");
-        bag.add("Orange");
-        bag.add("Grape");
+        // tests before adding to bag
+        //
+        // getCurrentSize()
+        System.out.println("\n\nTESTS BEFORE ADDING TO BAGS:\n");
+        System.out.println("bag1.getCurrentSize(); = " + bag1.getCurrentSize());
+        System.out.println("bag2.getCurrentSize(); = " + bag2.getCurrentSize());
 
-        // Get current size
-        System.out.println("Current Size: " + bag.getCurrentSize());
+        // isFull()
+        System.out.println();
+        System.out.println("bag1.isFull(); = " + bag1.isFull());
+        System.out.println("bag2.isFull(); = " + bag2.isFull());
 
-        // Check if empty
-        System.out.println("Is Empty: " + bag.isEmpty());
+        // isEmpty()
+        System.out.println();
+        System.out.println("bag1.isEmpty(); = " + bag1.isEmpty());
+        System.out.println("bag2.isEmpty(); = " + bag2.isEmpty());
 
-        // Check if full (always false for LinkedBag)
-        System.out.println("Is Full: " + bag.isFull());
+        // add items to bags
+        bag1.add("a");
+        bag1.add("b");
+        bag1.add("c");
 
-        // Remove element
-        System.out.println("Remove: " + bag.remove());
-        System.out.println("After Removing: " + bag);
+        bag2.add("b");
+        bag2.add("b");
+        bag2.add("d");
+        bag2.add("e");
 
-        // Check frequency
-        System.out.println("Frequency of Apple: " + bag.getFrequencyOf("Apple"));
+        // tests after adding to bag
+        //
+        // getCurrentSize()
+        System.out.println("\n\nTESTS AFTER ADDING TO BAGS:\n");
+        System.out.println("bag1.getCurrentSize(); = " + bag1.getCurrentSize());
+        System.out.println("bag2.getCurrentSize(); = " + bag2.getCurrentSize());
 
-        // Check if contains
-        System.out.println("Contains Orange: " + bag.contains("Orange"));
+        // isFull()
+        System.out.println();
+        System.out.println("bag1.isFull(); = " + bag1.isFull());
+        System.out.println("bag2.isFull(); = " + bag2.isFull());
 
-        // Union with another bag
-        LinkedBag<Integer> anotherBag = new LinkedBag<>();
-        anotherBag.add("Banana");
-        anotherBag.add("Orange");
-        anotherBag.add("Apple");
-        System.out.println("Union with Another Bag: " + bag.union(anotherBag));
+        // isEmpty()
+        System.out.println();
+        System.out.println("bag1.isEmpty(); = " + bag1.isEmpty());
+        System.out.println("bag2.isEmpty(); = " + bag2.isEmpty());
 
-        // Intersection with another bag
-        System.out.println("Intersection with Another Bag: " + bag.intersection(anotherBag));
+        // remove()
+        System.out.println();
+        System.out.println("bag1.remove(); = " + bag1.remove());
+        System.out.println("bag2.remove(); = " + bag2.remove());
 
-        // Difference with another bag
-        System.out.println("Difference with Another Bag: " + bag.difference(anotherBag));
+        // remove(T entry)
+        System.out.println();
+        System.out.println("bag1.remove(\"a\"); = " + bag1.remove("a"));
+        System.out.println("bag2.remove(\"b\"); = " + bag2.remove("b"));
+
+        // recheck current size
+        System.out.println();
+        System.out.println("bag1.getCurrentSize(); = " + bag1.getCurrentSize());
+        System.out.println("bag2.getCurrentSize(); = " + bag2.getCurrentSize());
+
+        // clear()
+        System.out.println();
+        System.out.println("bag1.clear();");
+        System.out.println("bag2.clear();");
+        bag1.clear();
+        bag2.clear();
+
+        // rechcked size after clearing
+        System.out.println();
+        System.out.println("bag1.getCurrentSize(); = " + bag1.getCurrentSize());
+        System.out.println("bag2.getCurrentSize(); = " + bag2.getCurrentSize());
+
+        // re-add items to bags
+        System.out.println("\n\nRE-ADDING ITEMS TO BAGS\n");
+        bag1.add("a");
+        bag1.add("b");
+        bag1.add("c");
+
+        bag2.add("b");
+        bag2.add("b");
+        bag2.add("d");
+        bag2.add("e");
+
+        // getFrequencyOf(T entry)
+        System.out.println();
+        System.out.println("bag1.getFrequencyOf(\"a\"); = " + bag1.getFrequencyOf("a"));
+        System.out.println("bag2.getFrequencyOf(\"b\"); = " + bag2.getFrequencyOf("b"));
+
+        // contains(T entry)
+        System.out.println();
+        System.out.println("bag1.contains(\"a\"); = " + bag1.contains("a"));
+        System.out.println("bag2.contains(\"z\"); = " + bag2.contains("z"));
+
+        // toArray() then print
+        System.out.println();
+        // System.out.println("bag1.toArray(); = " + bag1.toArray());
+        // System.out.println("bag2.toArray(); = " + bag2.toArray());
+        System.out.println("bag1.toArray(); = " + Arrays.toString(bag1.toArray()));
+        System.out.println("bag2.toArray(); = " + Arrays.toString(bag2.toArray()));
+        // NOTE: original bags are unaffected by toArray()
+
+        // TESTING union, intersection, difference
+        System.out.println("\n\nTESTING UNION, INTERSECTION, DIFFERENCE\n");
+
+        // union(BagInterface<T> inputBag)
+        BagInterface<String> unionBag = bag1.union(bag2);
+        System.out.println();
+        System.out.println("bag1.union(bag2); = " + Arrays.toString(unionBag.toArray()));
+
+        // intersection(BagInterface<T> inputBag)
+        BagInterface<String> intersectionBag = bag1.intersection(bag2);
+        System.out.println();
+        System.out.println("bag1.intersection(bag2); = " + Arrays.toString(intersectionBag.toArray()));
+
+        // difference(BagInterface<T> inputBag)
+        BagInterface<String> differenceBag1 = bag1.difference(bag2);
+        BagInterface<String> differenceBag2 = bag2.difference(bag1);
+        System.out.println();
+        System.out.println("bag1.difference(bag2); = " + Arrays.toString(differenceBag1.toArray()));
+        System.out.println("bag2.difference(bag1); = " + Arrays.toString(differenceBag2.toArray()));
+        System.out.println();
+
     }
 }
+
