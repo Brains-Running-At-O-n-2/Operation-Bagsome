@@ -157,12 +157,15 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      * @return bag with combined items
      */
     public BagInterface<T> union(BagInterface<T> inputBag) {
-
         T[] thisArray = this.toArray();
         T[] inputArray = inputBag.toArray();
 
-        ResizableArrayBag<T> result = new ResizableArrayBag<>();
+        if(thisArray == null || inputArray == null){
+            throw new IllegalArgumentException("Bag(s) should not be initialized with null");
+        }
 
+        ResizableArrayBag<T> result = new ResizableArrayBag<>();
+        
         for (T item : thisArray) {
             result.add(item);
         }
@@ -181,13 +184,16 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
     public BagInterface<T> intersection(BagInterface<T> inputBag) {
         T[] thisArray = this.toArray();
 
+        if(thisArray == null ){
+            throw new IllegalArgumentException("Bags should not be initialized with null");
+        }
+
         ResizableArrayBag<T> result = new ResizableArrayBag<>();
 
         for (T item : thisArray) {
             int lowerFrequency = this.getFrequencyOf(item) < inputBag.getFrequencyOf(item) ? this.getFrequencyOf(item)
                     : inputBag.getFrequencyOf(item);
-            int stillNeed = lowerFrequency - result.getFrequencyOf(item); // see if item is already added to the bag or
-                                                                          // not
+            int stillNeed = lowerFrequency - result.getFrequencyOf(item); // see if item is already added to the bag or not
 
             while (stillNeed > 0) {
                 result.add(item);
@@ -205,6 +211,10 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
      */
     public BagInterface<T> difference(BagInterface<T> inputBag) {
         T[] thisArray = this.toArray();
+
+        if(thisArray == null){
+            throw new IllegalArgumentException("Bag(s) should not be initialized with null");
+        }
 
         ResizableArrayBag<T> result = new ResizableArrayBag<>();
 
