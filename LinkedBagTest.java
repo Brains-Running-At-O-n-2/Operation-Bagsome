@@ -3,31 +3,45 @@ import java.util.*;
 
 public class LinkedBagTest {
     public static void main(String[] args) {
-        LinkedBag<String> bag1 = new LinkedBag<>();
-        bag1.add("Apple");
-        bag1.add("Apple");
-        bag1.add("Orange");
-        bag1.add("Banana");
-        bag1.add("Banana");
-        bag1.add("Banana");
-        bag1.add("Grapes");
-        bag1.add("Grapes");
-        bag1.add("Grapes");
+        LinkedBag<Integer> bag = new LinkedBag<>();
+        System.out.println("Bag: " + bag);
 
-        LinkedBag<String> bag2 = new LinkedBag<>();
-        bag2.add("Apple");
-        bag2.add("Apple");
-        bag2.add("Orange");
-        bag2.add("Orange");
-        bag2.add("Grapes");
+        // Add elements
+        bag.add(1);
+        bag.add(2);
+        bag.add(3);
+        System.out.println("After Adding: " + bag);
 
-        BagInterface<String> unionResult = bag1.union(bag2);
-        System.out.println("Union Result: " + Arrays.toString(unionResult.toArray()));
+        // Get current size
+        System.out.println("Current Size: " + bag.getCurrentSize());
 
-        BagInterface<String> intersectionResult = bag1.intersection(bag2);
-        System.out.println("Intersection Result: " + Arrays.toString(intersectionResult.toArray()));
+        // Check if empty
+        System.out.println("Is Empty: " + bag.isEmpty());
 
-        BagInterface<String> differenceResult = bag1.difference(bag2);
-        System.out.println("Difference Result: " + Arrays.toString(differenceResult.toArray()));
+        // Check if full (always false for LinkedBag)
+        System.out.println("Is Full: " + bag.isFull());
+
+        // Remove element
+        System.out.println("Remove: " + bag.remove());
+        System.out.println("After Removing: " + bag);
+
+        // Check frequency
+        System.out.println("Frequency of 2: " + bag.getFrequencyOf(2));
+
+        // Check if contains
+        System.out.println("Contains 3: " + bag.contains(3));
+
+        // Union with another bag
+        LinkedBag<Integer> anotherBag = new LinkedBag<>();
+        anotherBag.add(2);
+        anotherBag.add(3);
+        anotherBag.add(4);
+        System.out.println("Union with Another Bag: " + bag.union(anotherBag));
+
+        // Intersection with another bag
+        System.out.println("Intersection with Another Bag: " + bag.intersection(anotherBag));
+
+        // Difference with another bag
+        System.out.println("Difference with Another Bag: " + bag.difference(anotherBag));
     }
 }
