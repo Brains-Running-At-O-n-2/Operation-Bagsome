@@ -4,7 +4,7 @@ Member Names: Michael Wu, Thet Wai, Hoang Quan Dinh
 Michael's Contributions:
 - Create BagInterface.java
 - Implement ResizableArrayBag.java
-- Create tests for ResizableArrayBag in ResizableArrayBagTest.java
+- Create unit tests for ResizableArrayBag in ResizableArrayBagTest.java
 
 Thet Wai's Contributions:
 - Added javadoc to the BagInterface.java
