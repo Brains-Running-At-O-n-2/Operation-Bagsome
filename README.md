@@ -5,6 +5,7 @@ Michael's Contributions:
 - Create BagInterface.java
 - Implement ResizableArrayBag.java
 - Create unit tests for ResizableArrayBag in ResizableArrayBagTest.java
+- Create unit tests for LinkedBag in LinkedBagTest.java
 
 Thet Wai's Contributions:
 - Added javadoc to the BagInterface.java
@@ -13,6 +14,7 @@ Thet Wai's Contributions:
 Quan's Contributions:
 - Created and implement BagDriver.java
 
-TODO:Extra Features?
+Extra Features:
+- Unit Tests using JUnit
 
 TODO: Link to demo
