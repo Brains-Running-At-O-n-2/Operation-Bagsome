@@ -2,9 +2,9 @@
 
 **Member Names**: Michael Wu, Thet Wai, Hoang Quan Dinh
 
-**CPP Emails**: michaelwu1@cpp.edu, hoangquand@cpp.edu, twai@cpp.edu
+**CPP Emails**: michaelwu1@cpp.edu, twai@cpp.edu, hoangquand@cpp.edu
 
-**Github Usernames**: MichaelWuhu, HQD2004, bearismybrother
+**Github Usernames**: MichaelWuhu, bearismybrother, HQD2004
 
 **Roles:**
 Michael - Project Lead
@@ -30,4 +30,5 @@ Quan's Contributions:
 Extra Features:
 - Unit Tests using JUnit
 
-TODO: Link to demo
+Link to demo:
+https://youtu.be/BsUdXnxvifs
