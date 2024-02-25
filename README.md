@@ -2,9 +2,9 @@
 
 **Member Names**: Michael Wu, Thet Wai, Hoang Quan Dinh
 
-**CPP Emails**: michaelwu1@cpp.edu, 
+**CPP Emails**: michaelwu1@cpp.edu, hoangquand@cpp.edu
 
-**Github Usernames**: MichaelWuhu, 
+**Github Usernames**: MichaelWuhu, HQD2004
 
 **Roles:**
 Michael - Project Lead
@@ -25,6 +25,7 @@ Thet Wai's Contributions:
 
 Quan's Contributions:
 - Created and implement BagDriver.java
+- Time complexity and explanations for methods
 
 Extra Features:
 - Unit Tests using JUnit
