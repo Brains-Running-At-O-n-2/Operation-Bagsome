@@ -2,9 +2,9 @@
 
 **Member Names**: Michael Wu, Thet Wai, Hoang Quan Dinh
 
-**CPP Emails**: michaelwu1@cpp.edu, hoangquand@cpp.edu
+**CPP Emails**: michaelwu1@cpp.edu, hoangquand@cpp.edu, twai@cpp.edu
 
-**Github Usernames**: MichaelWuhu, HQD2004
+**Github Usernames**: MichaelWuhu, HQD2004, bearismybrother
 
 **Roles:**
 Michael - Project Lead
