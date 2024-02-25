@@ -1,6 +1,9 @@
 **Group name**: Brains Running At O(n^2)
+
 **Member Names**: Michael Wu, Thet Wai, Hoang Quan Dinh
+
 **CPP Emails**: michaelwu1@cpp.edu, 
+
 **Github Usernames**: MichaelWuhu, 
 
 **Roles:**
@@ -9,6 +12,7 @@ Thet - Programmer
 Quan - Programmer
 
 **Contributions:**
+
 Michael's Contributions:
 - Create BagInterface.java
 - Implement ResizableArrayBag.java
