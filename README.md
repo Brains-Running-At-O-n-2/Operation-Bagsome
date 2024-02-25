@@ -27,8 +27,8 @@ Quan's Contributions:
 - Created and implement BagDriver.java
 - Time complexity and explanations for methods
 
-Extra Features:
+**Extra Features**:
 - Unit Tests using JUnit
 
-Link to demo:
+**Link to demo**:
 https://youtu.be/BsUdXnxvifs
